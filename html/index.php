@@ -6,7 +6,11 @@
     $data=file_get_contents($url);
     $data_array= json_decode($data,true);
 
-    $results=$data_array["rest"][1]["name"];
+    $results_name=$data_array["rest"][0]["name"];
+    $results_url=$data_array["rest"][0]["url"];
+    $results_image=$data_array["rest"][0]["image_url"]["shop_image1"];
+    $results_address=$data_array["rest"][0]["address"];
+    $results_tel=$data_array["rest"][0]["tel"];
   }
 ?>
 <!DOCTYPE html>
@@ -19,14 +23,20 @@
 </head>
 <body>
   <div class="container">
-    <h1>Fix_phpfile</h1>
+    <h1>ぐるなびAPI</h1>
     <form action="" method="GET">
       <input type="text" name="q">
       <input type="submit" value="検索">
     </form>
     <?php 
-      echo $data;
-      echo $results;
+        // echo $data;
+        echo '<p>'.$results_name.'</p>'; 
+        echo '<br/>';
+        echo '<a href="'.$results_url.'">'.$results_name.'のURL</a>' ;
+        echo '<br/>';
+        echo '<img src="'.$results_image.'" alt="">' ;
+        echo '<p>'.$results_address.'</p>'; 
+        echo '<p>'.$results_tel.'</p>' ;
     ?>
   </div>
 </body>
