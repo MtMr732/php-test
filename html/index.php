@@ -6,11 +6,7 @@
     $data=file_get_contents($url);
     $data_array= json_decode($data,true);
 
-    $results_name=$data_array["rest"][0]["name"];
-    $results_url=$data_array["rest"][0]["url"];
-    $results_image=$data_array["rest"][0]["image_url"]["shop_image1"];
-    $results_address=$data_array["rest"][0]["address"];
-    $results_tel=$data_array["rest"][0]["tel"];
+    $results=$data_array["rest"];
   }
 ?>
 <!DOCTYPE html>
@@ -23,24 +19,38 @@
 </head>
 <body>
   <div class="container">
-    <h1>ぐるなびAPI</h1>
+    <h1>ぐるなびAPI改</h1>
     <form action="" method="GET">
       <input type="text" name="q">
       <input type="submit" value="検索">
     </form>
     <?php 
-        // echo $data;
-        echo '<p>'.$results_name.'</p>'; 
+      // ↓デバッグ用のデータ
+      // echo $data_array;
+      // print_r($data_array);
+      // echo count($results);
+      for($i=0;$i<count($results);$i++){
         echo '<br/>';
-        echo '<a href="'.$results_url.'">'.$results_name.'のURL</a>' ;
+        echo $results[$i]["name"];
         echo '<br/>';
-        echo '<img src="'.$results_image.'" alt="">' ;
-        echo '<p>'.$results_address.'</p>'; 
-        echo '<p>'.$results_tel.'</p>' ;
+        echo '<a href="'.$results[$i]["url"].'">'.$results[$i]["name"].'"のURL"</a>';
+        echo '<br/>';
+        echo '<img src="'.$results[$i]["image_url"]["shop_image1"].'" alt="">' ;
+        echo '<br/>';
+        echo $results[$i]["address"];
+        echo '<br/>';
+        echo $results[$i]["tel"];
+        echo '<br/>';
+      }
     ?>
-      <a href="https://api.gnavi.co.jp/api/scope/" target="_blank">
-      <img src="https://api.gnavi.co.jp/api/img/credit/api_155_20.gif" width="155" height="20" border="0" alt="グルメ情報検索サイト　ぐるなび">
-      </a>
+    <a href="https://api.gnavi.co.jp/api/scope/" target="_blank">
+    <img src="https://api.gnavi.co.jp/api/img/credit/api_155_20.gif" width="155" height="20" border="0" alt="グルメ情報検索サイト　ぐるなび">
+    </a>
   </div>
 </body>
 </html>
+
+
+
+
+
